@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (!id) {
       // Prompt the user for input
-      let userInput = prompt("Please enter your id:");
+      let userInput = prompt("Please enter your hackatime username (hit cancel if you don't have one):");
       
       // Store the input in localStorage
       localStorage.setItem('id', userInput);
@@ -35,16 +35,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Display the input in the HTML
     document.getElementById('display-input').textContent = name;
-    //document.getElementById('display-id').textContent = id;
-    fetch('https://waka.hackclub.com/api/compat/wakatime/v1/users/'+id+'/stats/today')
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById('display-time').textContent = data.data.human_readable_total;
-      })
-      .catch(error => {
-        console.error('Error fetching the data:', error);
-      });
+    console.log(id);
 
+    if (id != 'null') {
+      document.getElementById('coding-time-link').textContent = 'coding time today: ';
+      //document.getElementById('display-id').textContent = id;
+      fetch('https://waka.hackclub.com/api/compat/wakatime/v1/users/'+id+'/stats/today')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('display-time').textContent = data.data.human_readable_total;
+        })
+        .catch(error => {
+          console.error('Error fetching the data:', error);
+        });
+    }
+
+    if (id == null) {
+      document.getElementById('coding-time-link').textContent = '';
+    }
     // Get today's date in YYYY-MM-DD format
     function getTodayDate() {
       const today = new Date();

@@ -55,9 +55,9 @@
   </head>
   <body>
     <h1>hi <span id = "display-input"></span></h1>
-    <p style="font-size: 20px">
-      <a href="https://waka.hackclub.com" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
-        coding time today: <span id="display-time"></span>
+    <p style="font-size: 20px" id="coding-time-container">
+      <a href="https://waka.hackclub.com" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;" id="coding-time-link">
+        <span id="display-time"></span>
       </a>
     </p>
     <a href="https://xkcd.com" target="_blank" rel="noopener noreferrer">
@@ -70,5 +70,16 @@
       <ul id="todo-list"></ul>
     </div>
     <script src="newtab.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const displayTime = document.getElementById('display-time');
+        const codingContainer = document.getElementById('coding-time-container');
+
+        if (!displayTime || displayTime.textContent.trim() === '') {
+          codingContainer.style.display = 'none';
+          console.log('No coding time found');
+        }
+      });
+    </script>
   </body>
 </html>
